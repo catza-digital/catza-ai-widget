@@ -1,48 +1,40 @@
 /*
-====================================================
+=============================================
 CATZA AI Widget
-Versión: 2.0.0
-Autor: CATZA Digital
-====================================================
+Versión 1.0
+CATZA Digital
+=============================================
 */
 
 class CATZAWidget {
 
-    constructor() {
+    constructor(){
 
-        this.config = null;
+        this.config=null;
 
     }
 
-    async init() {
-
-        console.log("==================================");
-        console.log("CATZA AI Widget v2.0");
-        console.log("Iniciando...");
-        console.log("==================================");
+    async init(){
 
         await this.loadConfig();
 
     }
 
-    async loadConfig() {
+    async loadConfig(){
 
-        try {
+        try{
 
-            const response = await fetch("catza.config.json");
+            const response=await fetch("catza.config.json");
 
-            if (!response.ok) {
+            if(!response.ok){
 
-                throw new Error("No se encontró catza.config.json");
+                throw new Error("No existe catza.config.json");
 
             }
 
-            this.config = await response.json();
+            this.config=await response.json();
 
-            console.log("Configuración cargada correctamente");
-
-            console.table(this.config);
-
+            console.log("CATZA AI");
             console.log(this.config);
 
         }
