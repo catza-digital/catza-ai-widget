@@ -1,14 +1,11 @@
-/*
-==========================================
-CATZA AI Widget
-Versión 1.0
-==========================================
-*/
+#catza-button{
 
-body{
+transition:.25s;
 
-    margin:0;
+}
 
-    padding:0;
+#catza-button:hover{
+
+transform:scale(1.08);
 
 }
