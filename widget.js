@@ -1,7 +1,7 @@
 /*
 =====================================================
 CATZA AI Widget
-Versión: 1.0.0
+Versión: 1.1.0
 Autor: CATZA Digital
 =====================================================
 */
@@ -17,6 +17,7 @@ class CATZAWidget {
             nombre: "CATZA AI",
             saludo: "Hola 👋",
             mensaje: "Soy tu asistente virtual.<br><br>¿En qué puedo ayudarte?",
+            worker: "https://catza-assistant.catzadigital.workers.dev/"
 
         }, config);
 
@@ -179,25 +180,64 @@ class CATZAWidget {
 
     }
 
-    send() {
+    async send() {
 
-        const text = this.input.value.trim();
+        const texto = this.input.value.trim();
 
-        if (text === "") return;
+        if (texto === "") return;
 
-        this.addMessage(text, true);
+        this.addMessage(texto, true);
 
         this.input.value = "";
 
-        // RESPUESTA DE PRUEBA
+        // Mensaje temporal mientras responde la IA
+        this.addMessage("⏳ Pensando...");
 
-        setTimeout(() => {
+        try {
 
-            this.addMessage(
-                "Esta es una respuesta de prueba.<br><br>En la siguiente versión responderé usando IA."
-            );
+            const response = await fetch(this.config.worker, {
 
-        }, 500);
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    mensaje: texto
+
+                })
+
+            });
+
+            const data = await response.json();
+
+            // Eliminar el "Pensando..."
+            this.messages.removeChild(this.messages.lastChild);
+
+            if (data.ok) {
+
+                this.addMessage(data.respuesta);
+
+            } else {
+
+                this.addMessage("❌ " + (data.error || "Error desconocido"));
+
+            }
+
+        } catch (error) {
+
+            // Eliminar el "Pensando..."
+            this.messages.removeChild(this.messages.lastChild);
+
+            this.addMessage("❌ No se pudo conectar con el servidor.");
+
+            console.error(error);
+
+        }
 
     }
 
