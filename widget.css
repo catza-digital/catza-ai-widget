@@ -1,9 +1,9 @@
 /*
-=========================================
+====================================================
 CATZA AI Widget
-Version: 1.0.0
+Versión: 1.0.0
 Autor: CATZA Digital
-=========================================
+====================================================
 */
 
 :root{
@@ -12,58 +12,56 @@ Autor: CATZA Digital
     --catza-primary-hover:#1d4ed8;
 
     --catza-bg:#ffffff;
-
     --catza-header:#2563eb;
 
+    --catza-text:#1f2937;
     --catza-border:#e5e7eb;
 
-    --catza-text:#111827;
-
-    --catza-shadow:0 15px 40px rgba(0,0,0,.15);
+    --catza-shadow:
+        0 20px 45px rgba(0,0,0,.18);
 
     --catza-radius:18px;
 
-    --catza-font:Arial,Helvetica,sans-serif;
+    --catza-font:
+        Arial,
+        Helvetica,
+        sans-serif;
 
 }
 
 /* RESET */
 
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
 }
 
-/* BOTON */
+/* BOTÓN */
 
 .catza-button{
 
     position:fixed;
 
-    bottom:25px;
-
     right:25px;
+
+    bottom:25px;
 
     width:65px;
 
     height:65px;
 
-    border-radius:50%;
-
     border:none;
 
-    cursor:pointer;
+    border-radius:50%;
 
     background:var(--catza-primary);
 
-    color:white;
+    color:#fff;
 
-    font-size:28px;
+    font-size:30px;
+
+    cursor:pointer;
 
     box-shadow:var(--catza-shadow);
 
@@ -87,19 +85,17 @@ Autor: CATZA Digital
 
     position:fixed;
 
-    bottom:100px;
-
     right:25px;
 
-    width:370px;
+    bottom:105px;
+
+    width:380px;
 
     height:560px;
 
-    background:white;
+    background:var(--catza-bg);
 
-    border-radius:var(--catza-radius);
-
-    box-shadow:var(--catza-shadow);
+    border-radius:18px;
 
     overflow:hidden;
 
@@ -107,9 +103,19 @@ Autor: CATZA Digital
 
     flex-direction:column;
 
+    box-shadow:var(--catza-shadow);
+
     z-index:999998;
 
-    animation:catzaOpen .25s;
+    animation:catzaOpen .25s ease;
+
+}
+
+/* OCULTAR */
+
+.catza-hidden{
+
+    display:none;
 
 }
 
@@ -117,21 +123,23 @@ Autor: CATZA Digital
 
 .catza-header{
 
+    height:70px;
+
     background:var(--catza-header);
 
-    color:white;
-
-    padding:18px;
+    color:#fff;
 
     display:flex;
 
+    align-items:center;
+
     justify-content:space-between;
 
-    align-items:center;
+    padding:20px;
 
 }
 
-.catza-header-title{
+.catza-title{
 
     font-size:18px;
 
@@ -143,7 +151,15 @@ Autor: CATZA Digital
 
     cursor:pointer;
 
-    font-size:24px;
+    font-size:28px;
+
+    transition:.2s;
+
+}
+
+.catza-close:hover{
+
+    transform:scale(1.2);
 
 }
 
@@ -153,43 +169,47 @@ Autor: CATZA Digital
 
     flex:1;
 
+    background:#f8fafc;
+
     padding:18px;
 
     overflow-y:auto;
 
-    background:#f8fafc;
-
 }
 
-/* MENSAJE IA */
+/* BURBUJA */
 
 .catza-message{
 
-    background:white;
+    background:#fff;
 
-    padding:12px 15px;
+    padding:14px;
 
-    border-radius:15px;
+    border-radius:14px;
 
-    margin-bottom:12px;
-
-    color:#333;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
+    margin-bottom:15px;
 
     line-height:1.5;
 
+    color:#374151;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+
 }
 
-/* INPUT */
+/* FOOTER */
 
 .catza-footer{
+
+    height:70px;
 
     display:flex;
 
     border-top:1px solid var(--catza-border);
 
 }
+
+/* INPUT */
 
 .catza-input{
 
@@ -203,7 +223,11 @@ Autor: CATZA Digital
 
     font-size:15px;
 
+    font-family:var(--catza-font);
+
 }
+
+/* BOTÓN ENVIAR */
 
 .catza-send{
 
@@ -211,13 +235,15 @@ Autor: CATZA Digital
 
     border:none;
 
-    cursor:pointer;
-
     background:var(--catza-primary);
 
     color:white;
 
-    font-size:20px;
+    cursor:pointer;
+
+    font-size:22px;
+
+    transition:.2s;
 
 }
 
@@ -235,19 +261,27 @@ Autor: CATZA Digital
 
     width:calc(100% - 20px);
 
+    height:75vh;
+
     right:10px;
 
     left:10px;
 
     bottom:90px;
 
-    height:75vh;
+}
+
+.catza-button{
+
+    right:15px;
+
+    bottom:15px;
 
 }
 
 }
 
-/* ANIMACION */
+/* ANIMACIÓN */
 
 @keyframes catzaOpen{
 
@@ -255,7 +289,7 @@ from{
 
 opacity:0;
 
-transform:translateY(20px);
+transform:translateY(25px);
 
 }
 
