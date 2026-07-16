@@ -1,1 +1,270 @@
+/*
+=========================================
+CATZA AI Widget
+Version: 1.0.0
+Autor: CATZA Digital
+=========================================
+*/
 
+:root{
+
+    --catza-primary:#2563eb;
+    --catza-primary-hover:#1d4ed8;
+
+    --catza-bg:#ffffff;
+
+    --catza-header:#2563eb;
+
+    --catza-border:#e5e7eb;
+
+    --catza-text:#111827;
+
+    --catza-shadow:0 15px 40px rgba(0,0,0,.15);
+
+    --catza-radius:18px;
+
+    --catza-font:Arial,Helvetica,sans-serif;
+
+}
+
+/* RESET */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+/* BOTON */
+
+.catza-button{
+
+    position:fixed;
+
+    bottom:25px;
+
+    right:25px;
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    border:none;
+
+    cursor:pointer;
+
+    background:var(--catza-primary);
+
+    color:white;
+
+    font-size:28px;
+
+    box-shadow:var(--catza-shadow);
+
+    transition:.25s;
+
+    z-index:999999;
+
+}
+
+.catza-button:hover{
+
+    transform:scale(1.08);
+
+    background:var(--catza-primary-hover);
+
+}
+
+/* VENTANA */
+
+.catza-window{
+
+    position:fixed;
+
+    bottom:100px;
+
+    right:25px;
+
+    width:370px;
+
+    height:560px;
+
+    background:white;
+
+    border-radius:var(--catza-radius);
+
+    box-shadow:var(--catza-shadow);
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    z-index:999998;
+
+    animation:catzaOpen .25s;
+
+}
+
+/* HEADER */
+
+.catza-header{
+
+    background:var(--catza-header);
+
+    color:white;
+
+    padding:18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.catza-header-title{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.catza-close{
+
+    cursor:pointer;
+
+    font-size:24px;
+
+}
+
+/* MENSAJES */
+
+.catza-messages{
+
+    flex:1;
+
+    padding:18px;
+
+    overflow-y:auto;
+
+    background:#f8fafc;
+
+}
+
+/* MENSAJE IA */
+
+.catza-message{
+
+    background:white;
+
+    padding:12px 15px;
+
+    border-radius:15px;
+
+    margin-bottom:12px;
+
+    color:#333;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+
+    line-height:1.5;
+
+}
+
+/* INPUT */
+
+.catza-footer{
+
+    display:flex;
+
+    border-top:1px solid var(--catza-border);
+
+}
+
+.catza-input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    padding:18px;
+
+    font-size:15px;
+
+}
+
+.catza-send{
+
+    width:70px;
+
+    border:none;
+
+    cursor:pointer;
+
+    background:var(--catza-primary);
+
+    color:white;
+
+    font-size:20px;
+
+}
+
+.catza-send:hover{
+
+    background:var(--catza-primary-hover);
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:480px){
+
+.catza-window{
+
+    width:calc(100% - 20px);
+
+    right:10px;
+
+    left:10px;
+
+    bottom:90px;
+
+    height:75vh;
+
+}
+
+}
+
+/* ANIMACION */
+
+@keyframes catzaOpen{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
