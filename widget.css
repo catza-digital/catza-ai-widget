@@ -1,11 +1,7 @@
 #catza-button{
-
 transition:.25s;
-
 }
 
 #catza-button:hover{
-
 transform:scale(1.08);
-
 }
