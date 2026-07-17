@@ -1,0 +1,11 @@
+{
+  "widget": {
+    "nombre": "CATZA AI",
+    "mensaje": "Hola 👋 ¿En qué puedo ayudarte?",
+    "placeholder": "Escribe tu mensaje..."
+  },
+
+  "worker": {
+    "url": "https://catza-assistant.catzadigital.workers.dev"
+  }
+}
