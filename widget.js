@@ -140,21 +140,105 @@ placeholder="${this.config.widget.placeholder}"
 
     }
 
-    events(){
+events(){
 
-        this.button.onclick=()=>{
+    this.button.onclick=()=>{
 
-            this.window.classList.toggle("open");
+        this.window.classList.toggle("open");
 
-        };
+    };
 
-        document.getElementById("catza-close").onclick=()=>{
+    document.getElementById("catza-close").onclick=()=>{
 
-            this.window.classList.remove("open");
+        this.window.classList.remove("open");
 
-        };
+    };
+
+    this.send.onclick=()=>{
+
+        this.sendMessage();
+
+    };
+
+    this.input.addEventListener("keypress",(e)=>{
+
+        if(e.key==="Enter"){
+
+            this.sendMessage();
+
+        }
+
+    });
+
+}
+
+
+
+    addMessage(text,type){
+
+    const div=document.createElement("div");
+
+    div.className=type==="user"
+        ?"catza-user"
+        :"catza-bot";
+
+    div.innerHTML=text;
+
+    this.body.appendChild(div);
+
+    this.body.scrollTop=this.body.scrollHeight;
+
+}
+
+    async sendMessage(){
+
+    const mensaje=this.input.value.trim();
+
+    if(!mensaje) return;
+
+    this.addMessage(mensaje,"user");
+
+    this.input.value="";
+
+    try{
+
+        const response=await fetch(this.worker,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                mensaje:mensaje
+
+            })
+
+        });
+
+        const data=await response.json();
+
+        if(data.ok){
+
+            this.addMessage(data.respuesta,"bot");
+
+        }else{
+
+            this.addMessage("❌ "+data.error,"bot");
+
+        }
 
     }
+
+    catch(e){
+
+        this.addMessage("Error de conexión","bot");
+
+    }
+
+}
 
 }
 
