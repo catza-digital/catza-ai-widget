@@ -1,18 +1,19 @@
 (() => {
 
-    //==============================
+    //=================================
     // CONFIGURACIÓN
-    //==============================
+    //=================================
 
     const script = document.currentScript;
 
     const CLIENT_ID = script.dataset.client;
 
-    const API_URL = "https://catza-ai.catzadigital.workers.dev/chat";
+    const API_URL =
+        "https://catza-ai.catzadigital.workers.dev/chat";
 
-    //==============================
+    //=================================
     // ESTILOS
-    //==============================
+    //=================================
 
     const style = document.createElement("style");
 
@@ -69,22 +70,28 @@
     }
 
     .catza-message{
-        background:#fff;
         padding:10px 14px;
         border-radius:12px;
         margin-bottom:10px;
         max-width:80%;
         width:fit-content;
+        word-break:break-word;
     }
 
     .catza-bot{
         background:#ffffff;
+        color:#222;
     }
 
     .catza-user{
         background:#2563eb;
         color:white;
         margin-left:auto;
+    }
+
+    .catza-typing{
+        font-style:italic;
+        opacity:.7;
     }
 
     #catza-footer{
@@ -113,27 +120,27 @@
 
     document.head.appendChild(style);
 
-    //==============================
+    //=================================
     // BOTÓN
-    //==============================
+    //=================================
 
     const boton = document.createElement("div");
 
-    boton.id="catza-button";
+    boton.id = "catza-button";
 
-    boton.innerHTML="🤖";
+    boton.innerHTML = "🤖";
 
     document.body.appendChild(boton);
 
-    //==============================
-    // CHAT
-    //==============================
+    //=================================
+    // VENTANA
+    //=================================
 
-    const ventana=document.createElement("div");
+    const ventana = document.createElement("div");
 
-    ventana.id="catza-window";
+    ventana.id = "catza-window";
 
-    ventana.innerHTML=`
+     ventana.innerHTML = `
 
         <div id="catza-header">
             🤖 CATZA AI
@@ -142,13 +149,8 @@
         <div id="catza-messages">
 
             <div class="catza-message catza-bot">
-
-                Hola 👋
-
-                <br><br>
-
+                Hola 👋<br><br>
                 Soy CATZA AI.
-
             </div>
 
         </div>
@@ -157,6 +159,7 @@
 
             <input
                 id="catza-input"
+                type="text"
                 placeholder="Escribe un mensaje..."
             >
 
@@ -170,17 +173,166 @@
 
     document.body.appendChild(ventana);
 
-    //==============================
+    //=================================
+    // REFERENCIAS
+    //=================================
+
+    const mensajes = document.getElementById("catza-messages");
+
+    const input = document.getElementById("catza-input");
+
+    const enviar = document.getElementById("catza-send");
+
+    //=================================
+    // FUNCIONES
+    //=================================
+
+    function agregarMensaje(texto,tipo){
+
+        const div=document.createElement("div");
+
+        div.className=`catza-message ${tipo}`;
+
+        div.innerHTML=texto;
+
+        mensajes.appendChild(div);
+
+        mensajes.scrollTop=mensajes.scrollHeight;
+
+    }
+
+    function mostrarTyping(){
+
+        const div=document.createElement("div");
+
+        div.id="catza-typing";
+
+        div.className="catza-message catza-bot catza-typing";
+
+        div.innerHTML="Escribiendo...";
+
+        mensajes.appendChild(div);
+
+        mensajes.scrollTop=mensajes.scrollHeight;
+
+    }
+
+    function ocultarTyping(){
+
+        const typing=document.getElementById("catza-typing");
+
+        if(typing){
+
+            typing.remove();
+
+        }
+
+    }
+
+     //=================================
+    // API
+    //=================================
+
+    async function enviarMensaje(){
+
+        const texto=input.value.trim();
+
+        if(texto==="") return;
+
+        agregarMensaje(texto,"catza-user");
+
+        input.value="";
+
+        mostrarTyping();
+
+        enviar.disabled=true;
+
+        try{
+
+            const respuesta=await fetch(API_URL,{
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    clientId:CLIENT_ID,
+
+                    message:texto
+
+                })
+
+            });
+
+            const datos=await respuesta.json();
+
+            ocultarTyping();
+
+            agregarMensaje(
+
+                datos.reply || "No se recibió respuesta.",
+
+                "catza-bot"
+
+            );
+
+        }catch(error){
+
+            ocultarTyping();
+
+            agregarMensaje(
+
+                "❌ Error al conectar con el servidor.",
+
+                "catza-bot"
+
+            );
+
+            console.error(error);
+
+        }
+
+        enviar.disabled=false;
+
+        input.focus();
+
+    }
+
+     //=================================
     // EVENTOS
-    //==============================
+    //=================================
 
-    boton.onclick=()=>{
+    boton.onclick = () => {
 
-        ventana.style.display=
-        ventana.style.display==="flex"
-        ? "none"
-        : "flex";
+        ventana.style.display =
+            ventana.style.display === "flex"
+            ? "none"
+            : "flex";
+
+        if (ventana.style.display === "flex") {
+
+            input.focus();
+
+        }
 
     };
 
+    enviar.addEventListener("click", enviarMensaje);
+
+    input.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter") {
+
+            e.preventDefault();
+
+            enviarMensaje();
+
+        }
+
+    });
+
 })();
+
