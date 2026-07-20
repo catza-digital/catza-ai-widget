@@ -173,7 +173,6 @@
 
     document.body.appendChild(ventana);
 
-    cargarHistorial();
 
     //=================================
     // REFERENCIAS
@@ -184,6 +183,8 @@
     const input = document.getElementById("catza-input");
 
     const enviar = document.getElementById("catza-send");
+
+    cargarHistorial();
 
     //=================================
     // FUNCIONES
