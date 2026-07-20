@@ -173,6 +173,8 @@
 
     document.body.appendChild(ventana);
 
+    cargarHistorial();
+
     //=================================
     // REFERENCIAS
     //=================================
@@ -199,7 +201,34 @@
 
         mensajes.scrollTop=mensajes.scrollHeight;
 
+        guardarHistorial();
+
     }
+
+    function guardarHistorial() {
+
+        localStorage.setItem(
+            "catza_chat_" + CLIENT_ID,
+            mensajes.innerHTML
+        );
+
+    }
+
+    function cargarHistorial() {
+
+        const historial = localStorage.getItem(
+            "catza_chat_" + CLIENT_ID
+        );
+
+        if (historial) {
+
+            mensajes.innerHTML = historial;
+
+            mensajes.scrollTop = mensajes.scrollHeight;
+
+        }
+
+    }    
 
     function mostrarTyping(){
 
