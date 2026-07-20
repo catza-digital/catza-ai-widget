@@ -1,13 +1,10 @@
 #catza-ai-button{
 
 position:fixed;
-
 bottom:20px;
-
 right:20px;
 
 width:60px;
-
 height:60px;
 
 border-radius:50%;
@@ -17,9 +14,7 @@ background:#2563eb;
 color:white;
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
 font-size:30px;
@@ -37,5 +32,115 @@ transition:.3s;
 #catza-ai-button:hover{
 
 transform:scale(1.08);
+
+}
+
+#catza-ai-window{
+
+position:fixed;
+
+bottom:90px;
+
+right:20px;
+
+width:350px;
+
+height:500px;
+
+background:white;
+
+border-radius:16px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+display:none;
+
+flex-direction:column;
+
+overflow:hidden;
+
+z-index:999998;
+
+font-family:Arial,sans-serif;
+
+}
+
+#catza-ai-header{
+
+background:#2563eb;
+
+color:white;
+
+padding:15px;
+
+font-size:18px;
+
+font-weight:bold;
+
+}
+
+#catza-ai-messages{
+
+flex:1;
+
+padding:15px;
+
+overflow-y:auto;
+
+background:#f5f5f5;
+
+}
+
+.catza-message{
+
+background:white;
+
+padding:10px 14px;
+
+border-radius:12px;
+
+display:inline-block;
+
+max-width:80%;
+
+margin-bottom:10px;
+
+}
+
+#catza-ai-input{
+
+display:flex;
+
+border-top:1px solid #ddd;
+
+}
+
+#catza-ai-input input{
+
+flex:1;
+
+border:none;
+
+padding:15px;
+
+outline:none;
+
+font-size:15px;
+
+}
+
+#catza-ai-input button{
+
+width:60px;
+
+border:none;
+
+background:#2563eb;
+
+color:white;
+
+cursor:pointer;
+
+font-size:18px;
 
 }
