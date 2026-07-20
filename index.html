@@ -1,63 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CATZA AI Widget</title>
 
-    <title>CATZA AI Widget - Demo</title>
-
-    <link rel="stylesheet" href="widget.css">
+<link rel="stylesheet" href="widget.css">
 
 </head>
 
-<body style="margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f5;">
+<body>
 
-    <div style="
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        height:100vh;
-        text-align:center;
-    ">
+<h1>Página de prueba</h1>
 
-        <div>
+<p>El widget aparecerá abajo a la derecha.</p>
 
-            <h1>🛒 TIENDA ONLINE - PRUEBA</h1>
+<script src="widget.js"></script>
 
-            <p>
-                Esta es una tienda de prueba con el Widget de CATZA AI.
-            </p>
+<script>
 
-            <p>
-                Haz clic en el botón flotante ubicado en la esquina inferior derecha.
-            </p>
+CatzaAI.init({
+    clientId:"cliente001",
+    apiUrl:"https://catza-ai.catzadigital.workers.dev/chat"
+});
 
-        </div>
-
-    </div>
-
-    <!-- Widget CATZA AI -->
-    <script src="widget.js"></script>
-
-    <script>
-
-        CATZA.init({
-
-            nombre: "CATZA AI",
-
-            saludo: "Hola 👋",
-
-            mensaje: "Soy el asistente virtual de esta tienda.<br><br>¿En qué puedo ayudarte?",
-
-            worker: "https://catza-assistant.catzadigital.workers.dev/"
-
-        });
-
-    </script>
+</script>
 
 </body>
-
 </html>
