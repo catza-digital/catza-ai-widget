@@ -143,7 +143,7 @@
      ventana.innerHTML = `
 
         <div id="catza-header">
-            🤖 ASISTENTE AI
+            💬 ¿En qué podemos ayudarte?
         </div>
 
         <div id="catza-messages">
