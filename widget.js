@@ -10,6 +10,10 @@
 
     const POSITION = (script.dataset.position || "right").toLowerCase();
 
+    const FLOAT_MESSAGE =
+    script.dataset.message ||
+    "👋 ¡Hola!<br>¿En qué podemos ayudarte hoy?";
+
     const API_URL =
         "https://catza-ai.catzadigital.workers.dev/chat";
 
@@ -55,6 +59,100 @@
         z-index:999998;
         font-family:Arial,sans-serif;
     }
+
+#catza-popup{
+
+    position:fixed;
+
+    ${POSITION === "left"
+        ? "left:90px;"
+        : "right:90px;"}
+
+    bottom:30px;
+
+    width:260px;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+
+    z-index:999997;
+
+    font-family:Arial,sans-serif;
+
+    animation:catzaPopup .35s ease;
+
+}
+
+#catza-popup-message{
+
+    color:#333;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+}
+
+#catza-popup-close{
+
+    margin-top:10px;
+
+    color:#2563eb;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+#catza-popup::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%) rotate(45deg);
+
+    width:14px;
+
+    height:14px;
+
+    background:#fff;
+
+    ${POSITION==="left"
+        ? "left:-7px;"
+        : "right:-7px;"}
+
+}
+
+@keyframes catzaPopup{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}    
 
     #catza-header{
         background:#2563eb;
@@ -133,6 +231,35 @@
     boton.innerHTML = "💬";
 
     document.body.appendChild(boton);
+
+    //=================================
+// MENSAJE FLOTANTE
+//=================================
+
+const popup = document.createElement("div");
+
+popup.id = "catza-popup";
+
+popup.innerHTML = `
+    <div id="catza-popup-message">
+        ${FLOAT_MESSAGE}
+    </div>
+
+    <div id="catza-popup-close">
+        ✕ Cerrar
+    </div>
+`;
+
+document.body.appendChild(popup);
+
+// Cerrar mensaje
+document
+    .getElementById("catza-popup-close")
+    .onclick = () => {
+
+        popup.remove();
+
+    };
 
     //=================================
     // VENTANA
@@ -340,20 +467,26 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
     // EVENTOS
     //=================================
 
-    boton.onclick = () => {
+boton.onclick = () => {
 
-        ventana.style.display =
-            ventana.style.display === "flex"
-            ? "none"
-            : "flex";
+    if (popup) {
 
-        if (ventana.style.display === "flex") {
+        popup.remove();
 
-            input.focus();
+    }
 
-        }
+    ventana.style.display =
+        ventana.style.display === "flex"
+        ? "none"
+        : "flex";
 
-    };
+    if (ventana.style.display === "flex") {
+
+        input.focus();
+
+    }
+
+};
 
     enviar.addEventListener("click", enviarMensaje);
 
