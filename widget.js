@@ -8,6 +8,8 @@
 
     const CLIENT_ID = script.dataset.client;
 
+    const POSITION = (script.dataset.position || "right").toLowerCase();
+
     const API_URL =
         "https://catza-ai.catzadigital.workers.dev/chat";
 
@@ -21,7 +23,7 @@
 
     #catza-button{
         position:fixed;
-        right:20px;
+        ${POSITION === "left" ? "left:20px;" : "right:20px;"}
         bottom:20px;
         width:60px;
         height:60px;
@@ -40,7 +42,7 @@
 
     #catza-window{
         position:fixed;
-        right:20px;
+        ${POSITION === "left" ? "left:20px;" : "right:20px;"}
         bottom:90px;
         width:360px;
         height:520px;
