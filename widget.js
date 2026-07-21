@@ -322,13 +322,98 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
     // FUNCIONES
     //=================================
 
+function convertirEnlaces(texto){
+
+    return texto.replace(
+        /(https?:\/\/[^\s<]+)/g,
+        function(url){
+
+            let icono = "🔗";
+            let titulo = url;
+
+            if(url.includes("wa.me") || url.includes("api.whatsapp.com")){
+
+                icono = "💬";
+                titulo = "Abrir WhatsApp";
+
+            }
+
+            else if(
+                url.includes("maps.app.goo.gl") ||
+                url.includes("google.com/maps") ||
+                url.includes("goo.gl/maps")
+            ){
+
+                icono = "📍";
+                titulo = "Ver ubicación";
+
+            }
+
+            else if(url.includes("youtube.com") || url.includes("youtu.be")){
+
+                icono = "▶";
+                titulo = "Ver video";
+
+            }
+
+            else if(url.includes("facebook.com")){
+
+                icono = "👍";
+                titulo = "Facebook";
+
+            }
+
+            else if(url.includes("instagram.com")){
+
+                icono = "📷";
+                titulo = "Instagram";
+
+            }
+
+            else if(url.includes("tiktok.com")){
+
+                icono = "🎵";
+                titulo = "TikTok";
+
+            }
+
+            else if(url.endsWith(".pdf")){
+
+                icono = "📄";
+                titulo = "Descargar PDF";
+
+            }
+
+            return `
+                <br><br>
+                <a
+                    href="${url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="
+                        color:#2563eb;
+                        font-weight:bold;
+                        text-decoration:none;
+                    "
+                >
+                    ${icono} ${titulo}
+                </a>
+            `;
+
+        }
+    );
+
+}
+
+
+    
     function agregarMensaje(texto,tipo){
 
         const div=document.createElement("div");
 
         div.className=`catza-message ${tipo}`;
 
-        div.innerHTML=texto;
+        div.innerHTML=convertirEnlaces(texto);
 
         mensajes.appendChild(div);
 
