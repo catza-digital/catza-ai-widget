@@ -480,6 +480,9 @@ localStorage.setItem(
             content: texto
         
         });
+
+        // Mantener solo los últimos 20 mensajes
+        conversation = conversation.slice(-20);
         
         guardarHistorial();        
 
@@ -528,6 +531,9 @@ localStorage.setItem(
                 content: datos.reply || "No se recibió respuesta."
             
             });
+
+            // Mantener solo los últimos 20 mensajes
+            conversation = conversation.slice(-20);
             
             guardarHistorial();            
             
