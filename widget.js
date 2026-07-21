@@ -325,27 +325,49 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
     
     function convertirEnlaces(texto){
 
-    const regex = /((https?:\/\/[^\s)]+)|(www\.[^\s)]+)|((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^\s)]*)?))/gi;
+    const regex = /((https?:\/\/[^\s)]+)|(www\.[^\s)]+)|(wa\.me\/[^\s)]+)|(maps\.app\.goo\.gl\/[^\s)]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^\s)]*)?))/gi;
 
-    return texto.replace(regex, function(url){
+    return texto.replace(regex,function(url){
 
         let limpio = url.replace(/[.,;!?)]*$/,'');
 
         let enlace = limpio;
 
-        if(
-            !enlace.startsWith("http://") &&
-            !enlace.startsWith("https://")
-        ){
-            enlace = "https://" + enlace;
+        // Correo electrónico
+        if(limpio.includes("@")){
+
+            enlace = "mailto:" + limpio;
+
         }
 
-        return `<a href="${enlace}" target="_blank" rel="noopener noreferrer">${limpio}</a>`;
+        // Dominios sin protocolo
+        else if(
+            !limpio.startsWith("http://") &&
+            !limpio.startsWith("https://")
+        ){
+
+            enlace = "https://" + limpio;
+
+        }
+
+        return `
+            <a
+                href="${enlace}"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                    color:#2563eb;
+                    font-weight:bold;
+                    text-decoration:underline;
+                "
+            >
+                ${limpio}
+            </a>
+        `;
 
     });
 
 }
-
 
     
 
