@@ -319,6 +319,11 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
     // Historial para OpenAI
     let conversation = [];
 
+    // Tiempo máximo de una conversación (30 minutos)
+
+     const SESSION_TIMEOUT = 10000;
+
+    
     cargarHistorial();
 
     //=================================
@@ -404,6 +409,12 @@ localStorage.setItem(
     JSON.stringify(conversation)
 );
 
+    localStorage.setItem(
+        "catza_last_activity_" + CLIENT_ID,
+        Date.now()
+    
+    );    
+
 }
 
     function cargarHistorial() {
@@ -424,12 +435,48 @@ localStorage.setItem(
             const historialIA = localStorage.getItem(
                 "catza_history_" + CLIENT_ID
             );
-        
-            if (historialIA) {
-        
-                conversation = JSON.parse(historialIA);
-        
-            }      
+            
+            const ultimaActividad = localStorage.getItem(
+                "catza_last_activity_" + CLIENT_ID
+            );
+            
+            if (historialIA && ultimaActividad) {
+            
+                const tiempoTranscurrido =
+                    Date.now() - Number(ultimaActividad);
+            
+                if (tiempoTranscurrido < SESSION_TIMEOUT) {
+            
+                    conversation = JSON.parse(historialIA);
+            
+                } else {
+            
+                    // Expiró la conversación
+                    localStorage.removeItem(
+                        "catza_history_" + CLIENT_ID
+                    );
+            
+                    localStorage.removeItem(
+                        "catza_chat_" + CLIENT_ID
+                    );
+            
+                    localStorage.removeItem(
+                        "catza_last_activity_" + CLIENT_ID
+                    );
+            
+                    conversation = [];
+            
+                    mensajes.innerHTML = `
+                        <div class="catza-message catza-bot">
+                            Hola 👋<br><br>
+                            Bienvenido.<br><br>
+                            ¿En qué puedo ayudarte hoy?
+                        </div>
+                    `;
+            
+                }
+            
+            }   
 
     }    
 
