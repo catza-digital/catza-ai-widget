@@ -377,7 +377,59 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
 
 }
 
-    
+function convertirFormato(texto){
+
+    // Escapar HTML
+    texto = texto
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+    // Saltos de línea
+    texto = texto.replace(/\n/g,"<br>");
+
+    // Encabezado H1
+    texto = texto.replace(
+        /^# (.+)$/gm,
+        "<h2 style='margin:10px 0'>$1</h2>"
+    );
+
+    // Encabezado H2
+    texto = texto.replace(
+        /^## (.+)$/gm,
+        "<h3 style='margin:10px 0'>$1</h3>"
+    );
+
+    // **Negrita Markdown**
+    texto = texto.replace(
+        /\*\*(.+?)\*\*/g,
+        "<strong>$1</strong>"
+    );
+
+    // *Negrita estilo WhatsApp*
+    texto = texto.replace(
+        /\*(.+?)\*/g,
+        "<strong>$1</strong>"
+    );
+
+    // Código
+    texto = texto.replace(
+        /`([^`]+)`/g,
+        "<code style='background:#f3f3f3;padding:2px 5px;border-radius:4px'>$1</code>"
+    );
+
+    // Listas
+    texto = texto.replace(
+        /^\- (.+)$/gm,
+        "• $1"
+    );
+
+    // Enlaces
+    texto = convertirEnlaces(texto);
+
+    return texto;
+
+}    
 
     function agregarMensaje(texto,tipo){
 
@@ -385,7 +437,7 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
 
         div.className=`catza-message ${tipo}`;
 
-        div.innerHTML = convertirEnlaces(texto);
+       div.innerHTML = convertirFormato(texto);
 
         mensajes.appendChild(div);
 
