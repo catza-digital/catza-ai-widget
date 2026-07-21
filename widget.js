@@ -321,7 +321,7 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
 
     // Tiempo máximo de una conversación (30 minutos)
 
-     const SESSION_TIMEOUT = 10000;
+     const SESSION_TIMEOUT = 30 * 60 * 1000;
 
     
     cargarHistorial();
