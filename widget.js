@@ -322,13 +322,40 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
     // FUNCIONES
     //=================================
 
+    
+    function convertirEnlaces(texto){
+
+    const regex = /((https?:\/\/[^\s)]+)|(www\.[^\s)]+)|((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^\s)]*)?))/gi;
+
+    return texto.replace(regex, function(url){
+
+        let limpio = url.replace(/[.,;!?)]*$/,'');
+
+        let enlace = limpio;
+
+        if(
+            !enlace.startsWith("http://") &&
+            !enlace.startsWith("https://")
+        ){
+            enlace = "https://" + enlace;
+        }
+
+        return `<a href="${enlace}" target="_blank" rel="noopener noreferrer">${limpio}</a>`;
+
+    });
+
+}
+
+
+    
+
     function agregarMensaje(texto,tipo){
 
         const div=document.createElement("div");
 
         div.className=`catza-message ${tipo}`;
 
-        div.innerHTML=texto;
+        div.innerHTML = convertirEnlaces(texto);
 
         mensajes.appendChild(div);
 
