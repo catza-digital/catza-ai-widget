@@ -316,6 +316,9 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
 
     const enviar = document.getElementById("catza-send");
 
+    // Historial para OpenAI
+    let conversation = [];
+
     cargarHistorial();
 
     //=================================
@@ -387,14 +390,21 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
 
     }
 
-    function guardarHistorial() {
+function guardarHistorial() {
 
-        localStorage.setItem(
-            "catza_chat_" + CLIENT_ID,
-            mensajes.innerHTML
-        );
+// Guarda el historial visual del chat
+localStorage.setItem(
+    "catza_chat_" + CLIENT_ID,
+    mensajes.innerHTML
+);
 
-    }
+// Guarda el historial para la IA
+localStorage.setItem(
+    "catza_history_" + CLIENT_ID,
+    JSON.stringify(conversation)
+);
+
+}
 
     function cargarHistorial() {
 
@@ -409,6 +419,17 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
             mensajes.scrollTop = mensajes.scrollHeight;
 
         }
+
+              // Cargar historial para la IA
+            const historialIA = localStorage.getItem(
+                "catza_history_" + CLIENT_ID
+            );
+        
+            if (historialIA) {
+        
+                conversation = JSON.parse(historialIA);
+        
+            }      
 
     }    
 
@@ -452,6 +473,16 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
 
         agregarMensaje(texto,"catza-user");
 
+        conversation.push({
+        
+            role: "user",
+            
+            content: texto
+        
+        });
+        
+        guardarHistorial();        
+
         input.value="";
 
         mostrarTyping();
@@ -468,13 +499,13 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
                     "Content-Type":"application/json"
                 },
 
-                body:JSON.stringify({
-
-                    clientId:CLIENT_ID,
-
-                    message:texto
-
-                })
+                    body: JSON.stringify({
+                    
+                        clientId: CLIENT_ID,
+                    
+                        messages: conversation.slice(-20)
+                    
+                    })
 
             });
 
@@ -489,6 +520,17 @@ Estoy aquí para responder tus preguntas y brindarte la información que necesit
                 "catza-bot"
 
             );
+            
+            conversation.push({
+            
+                role: "assistant",
+            
+                content: datos.reply || "No se recibió respuesta."
+            
+            });
+            
+            guardarHistorial();            
+            
 
         }catch(error){
 
