@@ -128,7 +128,7 @@
 
     boton.id = "catza-button";
 
-    boton.innerHTML = "✨💬";
+    boton.innerHTML = "💬";
 
     document.body.appendChild(boton);
 
