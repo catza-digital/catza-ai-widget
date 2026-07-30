@@ -199,13 +199,18 @@
         border-top:1px solid #ddd;
     }
 
-    #catza-input{
-        flex:1;
-        border:none;
-        outline:none;
-        padding:15px;
-        font-size:15px;
-    }
+#catza-input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:15px;
+    font-size:15px;
+
+    background:#ffffff !important;
+    color:#222222 !important;
+    caret-color:#222222 !important;
+    -webkit-text-fill-color:#222222 !important;
+}
 
     #catza-send{
         width:60px;
